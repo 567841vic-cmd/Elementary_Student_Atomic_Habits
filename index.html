@@ -1,0 +1,2100 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="sticker">
+  <title>小學生高效學習原子習慣：8大策略 × 實作互動指南</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* 1. Sticker style tokens */
+      --background: #fef7ff;
+      --surface-container-low: #ffffff;
+      --surface-container: #f8eef8;
+      --surface-container-high: #f2e8f2;
+
+      --on-surface: #2e1a28;
+      --on-surface-variant: #604868;
+
+      --outline: #907898;
+      --outline-variant: #dcc8e0;
+
+      --primary: #c2207f;
+      --on-primary: #ffffff;
+      --primary-container: #f080c0;
+      --primary-container-soft: #fde6f3;
+      --on-primary-container: #2e1a28;
+      --secondary: #7c52aa;
+      --secondary-soft: #efe7f8;
+      --tertiary: #0096cc;
+      --tertiary-soft: #e0f5fc;
+      --error: #c53030;
+      --on-error: #ffffff;
+
+      /* Data series */
+      --data-1: #c2207f;
+      --data-1-fill: rgb(194 32 127 / 0.14);
+      --data-2: #7c52aa;
+      --data-3: #0096cc;
+      --data-3-fill: rgb(0 150 204 / 0.14);
+      --data-4: #d96a00;
+      --data-context: #c8b8d0;
+
+      /* Fonts (Non-Latin first per design_foundation) */
+      --font-headline: 'Noto Sans TC', 'DM Sans', sans-serif;
+      --font-body: 'Noto Sans TC', 'DM Sans', sans-serif;
+      --font-label: 'Noto Sans TC', 'DM Sans', sans-serif;
+
+      /* Shape */
+      --rounded: 1rem;
+      --rounded-lg: 2rem;
+      --rounded-full: 9999px;
+
+      /* Style effects */
+      --shadow-pink: 0 4px 16px rgb(224 64 160 / 0.2);
+      --shadow-pink-deep: 0 10px 28px rgb(224 64 160 / 0.32);
+      --shadow-grape: 0 4px 16px rgb(124 82 170 / 0.2);
+      --shadow-grape-deep: 0 10px 28px rgb(124 82 170 / 0.3);
+      --shadow-sky: 0 4px 16px rgb(0 150 204 / 0.2);
+      --shadow-sky-deep: 0 10px 28px rgb(0 150 204 / 0.3);
+      --pop-scale: scale(1.03);
+      --lift: translateY(-4px);
+      --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+      /* 3. Shared tokens */
+      --positive: #15803d;
+      --positive-soft: #dcfce7;
+      --warning: #b45309;
+      --warning-soft: #fef3c7;
+      --focus: var(--primary);
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.15rem, 1.4rem + 3vw, 3.65rem);
+      --headline-size: clamp(1.5rem, 1.15rem + 1.5vw, 2.25rem);
+      --subhead-size: clamp(1.15rem, 1.05rem + 0.45vw, 1.375rem);
+      --body-size: clamp(1.02rem, 0.98rem + 0.2vw, 1.125rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing scale */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 5.5rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+    button, input, select, textarea { font-family: inherit; }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2xl);
+      padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+      max-width: 1120px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    .display {
+      font-family: var(--font-headline);
+      font-weight: 900;
+      font-size: var(--display-size);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .display em, h2 em {
+      font-style: normal;
+      color: var(--primary);
+    }
+
+    h2 {
+      font-family: var(--font-headline);
+      font-weight: 800;
+      font-size: var(--headline-size);
+      letter-spacing: -0.015em;
+      line-height: 1.25;
+      color: var(--on-surface);
+      margin: 0 0 var(--space-sm) 0;
+    }
+
+    h3 {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: var(--subhead-size);
+      line-height: 1.35;
+      color: var(--on-surface);
+      margin: 0 0 var(--space-xs) 0;
+    }
+
+    p {
+      margin: 0 0 var(--space-md) 0;
+      max-width: 65ch;
+      color: var(--on-surface);
+    }
+    p:last-child { margin-bottom: 0; }
+
+    .lede {
+      font-size: clamp(1.1rem, 1.04rem + 0.35vw, 1.25rem);
+      color: var(--on-surface-variant);
+      max-width: 62ch;
+      line-height: 1.75;
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 700;
+      color: var(--secondary);
+      letter-spacing: 0.02em;
+      margin-bottom: var(--space-sm);
+    }
+
+    /* Cards & Panels (Sticker: white floating slabs with tinted shadows) */
+    .hero-panel {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      box-shadow: var(--shadow-pink);
+      padding: var(--space-2xl) var(--space-xl);
+      display: grid;
+      gap: var(--space-xl);
+    }
+
+    .card {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow-pink);
+      padding: var(--space-lg);
+    }
+    .card.tint-sky { box-shadow: var(--shadow-sky); }
+    .card.tint-grape { box-shadow: var(--shadow-grape); }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+    .card-grid > .card:nth-child(3n+2) { box-shadow: var(--shadow-sky); }
+    .card-grid > .card:nth-child(3n+3) { box-shadow: var(--shadow-grape); }
+
+    .asymmetric-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+
+    .card-wrapper { container-type: inline-size; }
+
+    /* Key figures */
+    .figure-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-lg);
+    }
+    .figure-card {
+      background: var(--surface-container);
+      border-radius: var(--rounded);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .figure-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 700;
+      color: var(--on-surface-variant);
+    }
+    .figure-value {
+      font-family: var(--font-headline);
+      font-weight: 900;
+      font-size: clamp(1.85rem, 1.4rem + 1.5vw, 2.5rem);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: var(--primary);
+    }
+    .figure-card.is-grape .figure-value { color: var(--secondary); }
+    .figure-card.is-plum .figure-value { color: var(--on-surface); }
+    .figure-caption {
+      font-size: 0.9375rem;
+      color: var(--on-surface-variant);
+      line-height: 1.55;
+    }
+
+    /* Pills, Badges, Tags */
+    .badge, .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      border-radius: var(--rounded-full);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 700;
+      padding: var(--space-xs) var(--space-md);
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+    .badge-pink {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+    .badge-soft-pink {
+      background: var(--primary-container-soft);
+      color: var(--primary);
+    }
+    .badge-grape {
+      background: var(--secondary-soft);
+      color: var(--secondary);
+    }
+    .badge-sky {
+      background: var(--tertiary-soft);
+      color: var(--on-surface);
+    }
+    .badge-positive {
+      background: var(--positive-soft);
+      color: var(--positive);
+    }
+    .tag-outline {
+      background: transparent;
+      border: 2px solid var(--secondary);
+      color: var(--secondary);
+    }
+
+    /* Buttons (Pills with bouncy pop) */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      border: none;
+      border-radius: var(--rounded-full);
+      padding: 0.7rem var(--space-lg);
+      min-height: 44px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform var(--dur-short) var(--ease-bounce),
+                  box-shadow var(--dur-short) var(--ease-out),
+                  background-color var(--dur-micro) var(--ease-out);
+    }
+    .btn:hover { transform: var(--pop-scale); }
+    .btn:active { transform: scale(0.97); }
+    .btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+      box-shadow: var(--shadow-pink);
+    }
+    .btn-primary:hover { box-shadow: var(--shadow-pink-deep); }
+
+    .btn-secondary {
+      background: var(--secondary);
+      color: var(--on-primary);
+      box-shadow: var(--shadow-grape);
+    }
+    .btn-secondary:hover { box-shadow: var(--shadow-grape-deep); }
+
+    .btn-quiet {
+      background: var(--surface-container);
+      color: var(--primary);
+      box-shadow: none;
+    }
+    .btn-quiet:hover {
+      background: var(--surface-container-high);
+    }
+
+    .btn-danger-quiet {
+      background: var(--surface-container);
+      color: var(--error);
+    }
+    .btn-danger-quiet:hover {
+      background: var(--primary-container-soft);
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+
+    /* Navigation jump pills */
+    .quick-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .chip-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      border-radius: var(--rounded-full);
+      background: var(--surface-container);
+      color: var(--on-surface);
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform var(--dur-short) var(--ease-bounce),
+                  background-color var(--dur-micro) var(--ease-out);
+    }
+    .chip-nav:hover {
+      transform: var(--pop-scale);
+      background: var(--primary-container-soft);
+      color: var(--primary);
+    }
+
+    /* Chips & Segmented controls */
+    .chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      border-radius: var(--rounded-full);
+      background: var(--surface-container);
+      color: var(--on-surface-variant);
+      padding: 0.55rem var(--space-md);
+      min-height: 44px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: transform var(--dur-short) var(--ease-bounce),
+                  background-color var(--dur-micro) var(--ease-out),
+                  color var(--dur-micro) var(--ease-out);
+    }
+    .chip:hover { transform: var(--pop-scale); }
+    .chip.is-active {
+      background: var(--primary);
+      color: var(--on-primary);
+      box-shadow: var(--shadow-pink);
+    }
+
+    /* Form Controls */
+    .control-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+      gap: var(--space-md);
+      align-items: end;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .field label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 700;
+      color: var(--on-surface-variant);
+    }
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      min-height: 44px;
+      padding: 0.6rem var(--space-lg);
+      border-radius: var(--rounded-full);
+      background: var(--surface-container);
+      color: var(--on-surface);
+      border: 2px solid var(--outline);
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: box-shadow var(--dur-micro) var(--ease-out),
+                  background-color var(--dur-micro) var(--ease-out);
+    }
+    select {
+      padding-right: 2.5rem;
+      cursor: pointer;
+    }
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    select:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px var(--primary-container);
+      background: var(--surface-container-low);
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--primary);
+      cursor: pointer;
+      min-height: 36px;
+    }
+
+    /* Progress bar (Lollipop pill) */
+    .progress-track {
+      width: 100%;
+      height: 16px;
+      border-radius: var(--rounded-full);
+      background: var(--surface-container-high);
+      overflow: hidden;
+      padding: 3px;
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: var(--rounded-full);
+      background: var(--tertiary);
+      transition: width var(--dur-short) var(--ease-bounce);
+      min-width: 10px;
+    }
+    .progress-fill.is-pink { background: var(--primary); }
+    .progress-fill.is-grape { background: var(--secondary); }
+
+    /* Section Header */
+    .section-block {
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .section-intro {
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    /* Chapter 1: Chart & Simulator */
+    .chart-shell {
+      position: relative;
+      width: 100%;
+      min-height: 320px;
+      padding: var(--space-md) 0 var(--space-xs);
+    }
+    .sim-stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-md);
+    }
+    .mini-stat {
+      background: var(--surface-container);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .mini-stat-label {
+      font-size: var(--label-size);
+      font-weight: 700;
+      color: var(--on-surface-variant);
+    }
+    .mini-stat-num {
+      font-size: 1.5rem;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+      color: var(--primary);
+    }
+    .mini-stat.is-grape .mini-stat-num { color: var(--secondary); }
+    .mini-stat.is-plum .mini-stat-num { color: var(--on-surface); }
+
+    /* Chapter 2: Identity vs Outcome cards */
+    .identity-compare {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-lg);
+    }
+    .compare-box {
+      border-radius: var(--rounded);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .compare-box.is-old {
+      background: var(--surface-container);
+    }
+    .compare-box.is-new {
+      background: var(--primary-container-soft);
+    }
+
+    /* Chapter 3: 4 Laws & Recipe Builder */
+    .law-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-lg);
+    }
+    .law-card {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow-pink);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+      align-content: start;
+    }
+    .law-card:nth-child(2) { box-shadow: var(--shadow-sky); }
+    .law-card:nth-child(3) { box-shadow: var(--shadow-grape); }
+    .law-card:nth-child(4) { box-shadow: var(--shadow-pink); }
+
+    .recipe-preview {
+      background: var(--surface-container);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .recipe-sentence {
+      font-size: clamp(1.1rem, 1.02rem + 0.35vw, 1.3rem);
+      font-weight: 700;
+      line-height: 1.75;
+      color: var(--on-surface);
+    }
+    .recipe-token-cue {
+      display: inline-block;
+      background: var(--tertiary-soft);
+      color: var(--on-surface);
+      border-radius: var(--rounded-full);
+      padding: 2px var(--space-md);
+      margin: 2px 0;
+    }
+    .recipe-token-act {
+      display: inline-block;
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      border-radius: var(--rounded-full);
+      padding: 2px var(--space-md);
+      margin: 2px 0;
+    }
+    .recipe-token-reward {
+      display: inline-block;
+      background: var(--secondary-soft);
+      color: var(--secondary);
+      border-radius: var(--rounded-full);
+      padding: 2px var(--space-md);
+      margin: 2px 0;
+    }
+
+    /* Chapter 4: 8 Strategies Explorer & Pomodoro */
+    .strategy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(290px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+    .strategy-card {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow-pink);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+      align-content: start;
+      cursor: pointer;
+      transition: transform var(--dur-short) var(--ease-bounce),
+                  box-shadow var(--dur-short) var(--ease-out);
+    }
+    .strategy-card:nth-child(3n+2) { box-shadow: var(--shadow-sky); }
+    .strategy-card:nth-child(3n+3) { box-shadow: var(--shadow-grape); }
+    .strategy-card:hover { transform: var(--lift); }
+    .strategy-card.is-selected {
+      box-shadow: 0 0 0 3px var(--primary), var(--shadow-pink-deep);
+    }
+
+    .strategy-detail-panel {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      box-shadow: var(--shadow-grape);
+      padding: var(--space-xl);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .strategy-steps {
+      margin: 0;
+      padding-left: 1.4rem;
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .strategy-steps li {
+      color: var(--on-surface);
+      line-height: 1.65;
+    }
+    .tip-well {
+      background: var(--surface-container);
+      border-radius: var(--rounded);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      gap: var(--space-sm);
+      align-items: flex-start;
+    }
+
+    /* Pomodoro Mini Widget */
+    .timer-card {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      box-shadow: var(--shadow-sky);
+      padding: var(--space-xl);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-lg);
+      align-items: center;
+    }
+    .timer-readout {
+      font-family: var(--font-headline);
+      font-weight: 900;
+      font-size: clamp(2.5rem, 2rem + 2vw, 3.5rem);
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+      color: var(--primary);
+    }
+
+    /* Chapter 5: 7-Day Habit Tracker */
+    .tracker-table-wrap {
+      overflow-x: auto;
+      padding-bottom: var(--space-xs);
+    }
+    .tracker-list {
+      display: grid;
+      gap: var(--space-md);
+    }
+    .habit-row {
+      background: var(--surface-container);
+      border-radius: var(--rounded);
+      padding: var(--space-md) var(--space-lg);
+      display: grid;
+      grid-template-columns: minmax(180px, 1.3fr) auto auto;
+      gap: var(--space-md);
+      align-items: center;
+    }
+    .habit-title-group {
+      display: grid;
+      gap: 2px;
+    }
+    .habit-name {
+      font-weight: 700;
+      color: var(--on-surface);
+      font-size: 1.02rem;
+    }
+    .habit-meta {
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      font-weight: 600;
+    }
+    .day-pills {
+      display: flex;
+      gap: var(--space-xs);
+      flex-wrap: wrap;
+    }
+    .day-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--rounded-full);
+      border: 2px solid var(--outline-variant);
+      background: var(--surface-container-low);
+      color: var(--on-surface-variant);
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform var(--dur-short) var(--ease-bounce),
+                  background-color var(--dur-micro) var(--ease-out),
+                  color var(--dur-micro) var(--ease-out);
+    }
+    .day-btn:hover { transform: var(--pop-scale); }
+    .day-btn.is-done {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-pink);
+    }
+
+    .empty-state {
+      background: var(--surface-container);
+      border-radius: var(--rounded);
+      padding: var(--space-xl);
+      text-align: center;
+      display: grid;
+      gap: var(--space-md);
+      justify-items: center;
+    }
+
+    .status-banner {
+      border-radius: var(--rounded-full);
+      padding: var(--space-sm) var(--space-lg);
+      background: var(--positive-soft);
+      color: var(--positive);
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .status-banner.is-hidden { display: none; }
+    .status-banner.is-warning {
+      background: var(--warning-soft);
+      color: var(--warning);
+    }
+
+    /* Footer / Source note */
+    .source-footer {
+      background: var(--surface-container);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg) var(--space-xl);
+      display: grid;
+      gap: var(--space-xs);
+      color: var(--on-surface-variant);
+      font-size: 0.92rem;
+    }
+
+    /* Animations */
+    .reveal-item {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity var(--dur-long) var(--ease-out),
+                  transform var(--dur-long) var(--ease-out);
+    }
+    .reveal-item.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Container & Media Queries */
+    @container (max-width: 520px) {
+      .identity-compare { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 820px) {
+      .asymmetric-split { grid-template-columns: 1fr; }
+      .figure-grid { grid-template-columns: 1fr; }
+      .law-grid { grid-template-columns: 1fr; }
+      .timer-card { grid-template-columns: 1fr; }
+      .habit-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md) var(--space-md) var(--space-2xl);
+        gap: var(--space-xl);
+      }
+      .hero-panel {
+        padding: var(--space-xl) var(--space-lg);
+      }
+      .sim-stats-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-grid">
+
+    <!-- HERO SECTION -->
+    <header class="hero-panel reveal-item is-visible">
+      <div class="section-intro">
+        <span class="badge badge-pink">
+          <i data-lucide="sparkles" width="15" height="15" aria-hidden="true"></i>
+          <span>小學生自主學習指南</span>
+        </span>
+        <h1 class="display">讓學習變輕鬆的<em>原子習慣</em></h1>
+        <p class="lede">
+          成績好不是靠「一次撐完兩小時」，而是每天做對一個兩分鐘就能開始的小動作。這份互動指南將「原子習慣四法則」與「八大高效學習策略」拆解成看得到、做得到的實作步驟，陪孩子一起學會「如何學」。
+        </p>
+      </div>
+
+      <nav class="quick-nav" aria-label="章節快速導覽">
+        <button type="button" class="chip-nav" onclick="scrollToSection('sec-compound')">1. 1% 複利實驗室</button>
+        <button type="button" class="chip-nav" onclick="scrollToSection('sec-identity')">2. 身份認同轉換</button>
+        <button type="button" class="chip-nav" onclick="scrollToSection('sec-laws')">3. 四法則配方機</button>
+        <button type="button" class="chip-nav" onclick="scrollToSection('sec-strategies')">4. 8大高效策略</button>
+        <button type="button" class="chip-nav" onclick="scrollToSection('sec-tracker')">5. 我的7天打卡表</button>
+      </nav>
+
+      <div class="figure-grid">
+        <div class="figure-card">
+          <span class="figure-label">1% 複利奇蹟</span>
+          <span class="figure-value">37.78 倍</span>
+          <span class="figure-caption">每天只多學 1%，一年後會累積成原本能力的將近 38 倍。</span>
+        </div>
+        <div class="figure-card is-grape">
+          <span class="figure-label">克服拖延門檻</span>
+          <span class="figure-value">2 分鐘</span>
+          <span class="figure-caption">把大任務縮小到「先寫第一題」，大腦就不再抗拒開始。</span>
+        </div>
+        <div class="figure-card is-plum">
+          <span class="figure-label">學習系統架構</span>
+          <span class="figure-value">8 大策略</span>
+          <span class="figure-caption">從整理書桌、專注節奏到主動回想，建立帶得走的學習方法。</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- CHAPTER 1: 1% COMPOUNDING EFFECT -->
+    <section id="sec-compound" class="section-block reveal-item">
+      <div class="section-intro">
+        <span class="kicker">第一章・微習慣的數學力量</span>
+        <h2>每天只多努力 1%，一年後會拉開 <em>37 倍</em>差距</h2>
+        <p>
+          小學生常以為學習進步要靠考前熬夜或一口氣寫完十頁評量，但大腦其實更容易被每天「剛剛好、做得到」的小動作改變。拉動下方的滑桿，看看每天多學一點點和每天少做一點點，在學期中與一年後會出現什麼驚人的分岔。
+        </p>
+      </div>
+
+      <div class="card tint-sky">
+        <div class="control-row">
+          <div class="field">
+            <label for="slider-days">堅持累積的天數：<strong id="label-days">180 天</strong></label>
+            <input type="range" id="slider-days" min="30" max="365" step="15" value="180" oninput="syncDaysFromSlider(this.value)">
+          </div>
+          <div class="field">
+            <label for="input-days">直接輸入天數（30–365）</label>
+            <input type="number" id="input-days" min="30" max="365" value="180" oninput="syncDaysFromNumber(this.value)">
+          </div>
+          <div class="field">
+            <label for="select-rate">每天微調的習慣強度</label>
+            <select id="select-rate" onchange="updateCompoundChart()">
+              <option value="0.005">每天多 0.5%（超輕鬆起步：多背 1 個單字）</option>
+              <option value="0.01" selected>每天多 1.0%（黃金標準：專心多讀 5 分鐘）</option>
+              <option value="0.015">每天多 1.5%（進階挑戰：主動複習錯題 1 題）</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="chart-shell">
+          <canvas id="compound-chart" aria-label="每日習慣複利成長比較折線圖"></canvas>
+        </div>
+
+        <div class="sim-stats-row">
+          <div class="mini-stat">
+            <span class="mini-stat-label">持續進步曲線</span>
+            <span class="mini-stat-num" id="stat-up">6.00 倍</span>
+          </div>
+          <div class="mini-stat is-plum">
+            <span class="mini-stat-label">維持原狀（0%）</span>
+            <span class="mini-stat-num">1.00 倍</span>
+          </div>
+          <div class="mini-stat is-grape">
+            <span class="mini-stat-label">每天偷懶退步 1%</span>
+            <span class="mini-stat-num" id="stat-down">0.16 倍</span>
+          </div>
+        </div>
+
+        <div class="tip-well" style="margin-top: var(--space-md);">
+          <i data-lucide="lightbulb" width="20" height="20" aria-hidden="true" style="flex-shrink: 0; color: var(--primary); margin-top: 3px;"></i>
+          <span id="compound-insight">在前 30 天看起來進步不明顯，這叫做「潛在勢能高原」。只要撐過前面打底期，曲線就會開始明顯往上衝！</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 2: IDENTITY-BASED HABITS -->
+    <section id="sec-identity" class="section-block reveal-item">
+      <div class="section-intro">
+        <span class="kicker">第二章・先改變自我認同，再改變成績</span>
+        <h2>把「我想考 100 分」換成「我是會自己想辦法的學習者」</h2>
+        <p>
+          只盯著分數看，沒考好就容易沮喪放棄；但如果把目標放在「我是怎樣的人」，每一次打開課本、每一題訂正，都是在為理想中的自己投下一張選票。點選下方常見的小學生學習卡關情境，看看怎麼重新設定對自己的說法。
+        </p>
+      </div>
+
+      <div class="card-wrapper">
+        <div class="card">
+          <div class="chip-group" role="group" aria-label="選擇學習情境">
+            <button type="button" class="chip is-active" id="id-btn-0" onclick="selectIdentityScene(0)">放學不想寫功課</button>
+            <button type="button" class="chip" id="id-btn-1" onclick="selectIdentityScene(1)">數學粗心算錯</button>
+            <button type="button" class="chip" id="id-btn-2" onclick="selectIdentityScene(2)">英文單字背不起來</button>
+            <button type="button" class="chip" id="id-btn-3" onclick="selectIdentityScene(3)">看書總是三分鐘熱度</button>
+          </div>
+
+          <div class="identity-compare" style="margin-top: var(--space-lg);">
+            <div class="compare-box is-old">
+              <span class="badge badge-grape">只看結果的舊想法</span>
+              <h3 id="id-old-title">「媽媽叫我寫完功課才能玩，好煩喔。」</h3>
+              <p id="id-old-desc">把寫作業當成被迫完成的苦差事，只求趕快敷衍寫完，大腦越寫越想逃避。</p>
+            </div>
+            <div class="compare-box is-new">
+              <span class="badge badge-pink">原子習慣新身份</span>
+              <h3 id="id-new-title">「我是一個先把任務搞定、再盡情放鬆的自律玩家。」</h3>
+              <p id="id-new-desc">放學後先完成 2 分鐘「打開聯絡簿＋拿出第一本作業」，就等於為「自律玩家」投下一票！</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 3: THE 4 LAWS & HABIT STACKING BUILDER -->
+    <section id="sec-laws" class="section-block reveal-item">
+      <div class="section-intro">
+        <span class="kicker">第三章・行為改變四法則</span>
+        <h2>好習慣不需要靠意志力硬撐，只需要<em>四個設計</em></h2>
+        <p>
+          為什麼滑平板不用人催，打開書包卻覺得書好重？因為大腦喜歡「看得見、有趣、簡單、馬上開心」的事。只要用這四個法則改造學習環境，就能把好習慣變得像刷牙一樣自然。
+        </p>
+      </div>
+
+      <div class="law-grid">
+        <article class="law-card">
+          <span class="badge badge-soft-pink">法則 1・讓提示顯而易見</span>
+          <h3>把書本放在看得到的地方</h3>
+          <p>回家後把明天要複習的課本或錯題本直接擺在書桌正中央，遙控器與平板收進抽屜。視覺看到提示，大腦就會自動想起該做什麼。</p>
+        </article>
+        <article class="law-card">
+          <span class="badge badge-sky">法則 2・讓習慣有吸引力</span>
+          <h3>先做學習任務，再接喜歡的活動</h3>
+          <p>用「習慣捆綁」把微學習接在快樂事情前面：例如「練完 10 分鐘口算，就能聽一集故事廣播」，讓大腦期待完成後的好時光。</p>
+        </article>
+        <article class="law-card">
+          <span class="badge badge-grape">法則 3・讓行動輕而易舉</span>
+          <h3>善用「兩分鐘啟動法則」</h3>
+          <p>不要訂「今天要讀一小時」這種大目標，改訂「先坐在書桌前寫完 2 題」。最難的永遠是開始的那一瞬間，啟動後往往能順勢做更多。</p>
+        </article>
+        <article class="law-card">
+          <span class="badge badge-positive">法則 4・讓獎賞令人滿足</span>
+          <h3>把看不見的進步變成看得到的分數</h3>
+          <p>每完成一次就立刻在打卡表塗滿一格、貼一張小貼紙或跟爸媽擊掌。即時的小小成就感，會告訴大腦：「明天還要再來一次！」</p>
+        </article>
+      </div>
+
+      <!-- INTERACTIVE HABIT STACKING BUILDER -->
+      <div class="card tint-grape" id="recipe-builder">
+        <div class="section-intro" style="margin-bottom: var(--space-md);">
+          <span class="kicker">實作工具・放學後習慣堆疊配方機</span>
+          <h3>組合屬於你的「放學黃金 2 分鐘」</h3>
+          <p>利用「習慣堆疊」技巧，把新的學習微習慣掛在每天一定會做的事情後面。選好三個步驟，就能一鍵加入你的打卡表。</p>
+        </div>
+
+        <div class="control-row">
+          <div class="field">
+            <label for="sel-cue">1. 既有的日常提示（做完什麼之後）</label>
+            <select id="sel-cue" onchange="updateRecipePreview()">
+              <option value="放學回家脫下書包喝口水">放學回家脫下書包喝口水</option>
+              <option value="吃飽晚餐把碗放到水槽">吃飽晚餐把碗放到水槽</option>
+              <option value="洗完澡吹乾頭髮">洗完澡吹乾頭髮</option>
+              <option value="早上吃完早餐背起書包前">早上吃完早餐背起書包前</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="sel-action">2. 兩分鐘微學習行動（立刻做什麼）</label>
+            <select id="sel-action" onchange="updateRecipePreview()">
+              <option value="立刻打開聯絡簿把作業排好順序">立刻打開聯絡簿把作業排好順序</option>
+              <option value="拿出數學練習寫完前 2 題">拿出數學練習寫完前 2 題</option>
+              <option value="大聲唸出 3 個英文單字並造句">大聲唸出 3 個英文單字並造句</option>
+              <option value="把今天寫錯的 1 題寫進錯題偵探本">把今天寫錯的 1 題寫進錯題偵探本</option>
+              <option value="花 3 分鐘檢查並整理明天書包">花 3 分鐘檢查並整理明天書包</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="sel-reward">3. 即時小獎賞（完成後享受）</label>
+            <select id="sel-reward" onchange="updateRecipePreview()">
+              <option value="在七天打卡表蓋上完成印章">在七天打卡表蓋上完成印章</option>
+              <option value="開心休息伸懶腰 5 分鐘">開心休息伸懶腰 5 分鐘</option>
+              <option value="聽一首最喜歡的歌曲或故事">聽一首最喜歡的歌曲或故事</option>
+              <option value="跟爸媽擊掌換一張鼓勵貼紙">跟爸媽擊掌換一張鼓勵貼紙</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="recipe-preview" style="margin-top: var(--space-lg);">
+          <div class="recipe-sentence">
+            當我「<span class="recipe-token-cue" id="prev-cue">放學回家脫下書包喝口水</span>」之後，我會立刻「<span class="recipe-token-act" id="prev-action">立刻打開聯絡簿把作業排好順序</span>」，完成後我就可以「<span class="recipe-token-reward" id="prev-reward">在七天打卡表蓋上完成印章</span>」！
+          </div>
+          <div class="btn-row">
+            <button type="button" class="btn btn-primary" onclick="addRecipeToTracker()">
+              <i data-lucide="plus" width="18" height="18" aria-hidden="true"></i>
+              <span>把這個配方加入我的打卡表</span>
+            </button>
+            <span id="recipe-feedback" class="status-banner is-hidden" role="status"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 4: 8 CORE HIGH-EFFICIENCY LEARNING STRATEGIES -->
+    <section id="sec-strategies" class="section-block reveal-item">
+      <div class="section-intro">
+        <span class="kicker">第四章・8 大高效學習策略與實作心法</span>
+        <h2>不只努力，更要掌握「學習如何學」的 8 把鑰匙</h2>
+        <p>
+          養成讀書習慣後，還要用對方法才能事半功倍。點選分類篩選或任一張策略卡片，查看具體的實作步驟與容易踩雷的地方。
+        </p>
+      </div>
+
+      <div class="chip-group" role="group" aria-label="策略分類篩選">
+        <button type="button" class="chip is-active" data-filter="all" onclick="filterStrategies('all', this)">全部 8 大策略</button>
+        <button type="button" class="chip" data-filter="focus" onclick="filterStrategies('focus', this)">啟動與專注（3項）</button>
+        <button type="button" class="chip" data-filter="memory" onclick="filterStrategies('memory', this)">記憶與理解（3項）</button>
+        <button type="button" class="chip" data-filter="review" onclick="filterStrategies('review', this)">復盤與整理（2項）</button>
+      </div>
+
+      <div class="strategy-grid" id="strategy-grid"></div>
+
+      <!-- Inline Detail Panel (Spatial Contiguity: stays adjacent to cards) -->
+      <div class="strategy-detail-panel" id="strategy-detail" aria-live="polite"></div>
+
+      <!-- Mini Elementary Pomodoro Timer -->
+      <div class="timer-card">
+        <div style="display: grid; gap: var(--space-sm);">
+          <span class="badge badge-sky" style="width: fit-content;">策略 3 實作工具・小學版番茄鐘（15 + 5 節奏）</span>
+          <div class="timer-readout" id="timer-display">15:00</div>
+          <div class="progress-track" aria-hidden="true">
+            <div class="progress-fill" id="timer-progress" style="width: 100%;"></div>
+          </div>
+          <p id="timer-status" style="color: var(--on-surface-variant); font-size: 0.95rem;">
+            小學生大腦最適合 15 分鐘專注搭配 5 分鐘起身動一動。選一個時間馬上試試看！
+          </p>
+        </div>
+        <div class="btn-row" style="justify-content: flex-end;">
+          <button type="button" class="btn btn-quiet" onclick="setTimerPreset(1)">1 分鐘體驗</button>
+          <button type="button" class="btn btn-quiet" onclick="setTimerPreset(15)">15 分鐘專注</button>
+          <button type="button" class="btn btn-primary" id="timer-toggle-btn" onclick="toggleTimer()">
+            <i data-lucide="play" width="18" height="18" aria-hidden="true"></i>
+            <span>開始計時</span>
+          </button>
+          <button type="button" class="btn btn-quiet" onclick="resetTimer()">重設</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 5: INTERACTIVE 7-DAY HABIT TRACKER -->
+    <section id="sec-tracker" class="section-block reveal-item">
+      <div class="section-intro">
+        <span class="kicker">第五章・可視化進度與持久化打卡表</span>
+        <h2>我的本週原子習慣實踐表（不連續中斷兩天！）</h2>
+        <p>
+          記錄下每天完成的小勝利，會讓大腦產生強烈的成就感。忘記一天沒關係，只要提醒自己「絕不連續中斷兩天」就能立刻回到軌道。你的紀錄會自動保存，下次打開依然在這裡。
+        </p>
+      </div>
+
+      <div class="card">
+        <!-- Summary Metrics & Progress -->
+        <div class="sim-stats-row" style="margin-top: 0; margin-bottom: var(--space-lg);">
+          <div class="mini-stat">
+            <span class="mini-stat-label">本週總完成次數</span>
+            <span class="mini-stat-num" id="tracker-total-done">0 / 0</span>
+          </div>
+          <div class="mini-stat is-grape">
+            <span class="mini-stat-label">本週達標率</span>
+            <span class="mini-stat-num" id="tracker-rate">0%</span>
+          </div>
+          <div class="mini-stat is-plum">
+            <span class="mini-stat-label">身份認同投票數</span>
+            <span class="mini-stat-num" id="tracker-votes">0 票</span>
+          </div>
+        </div>
+
+        <div class="progress-track" style="margin-bottom: var(--space-lg);" aria-label="本週習慣總進度條">
+          <div class="progress-fill is-pink" id="tracker-progress-bar" style="width: 0%;"></div>
+        </div>
+
+        <!-- Add Custom Habit -->
+        <div class="control-row" style="margin-bottom: var(--space-lg);">
+          <div class="field">
+            <label for="new-habit-name">新增一個 2 分鐘微習慣</label>
+            <input type="text" id="new-habit-name" placeholder="例如：睡前花 3 分鐘整理明天書包" maxlength="48">
+          </div>
+          <div class="field">
+            <label for="new-habit-cue">搭配提示（選填）</label>
+            <input type="text" id="new-habit-cue" placeholder="例如：洗完澡吹乾頭髮後" maxlength="32">
+          </div>
+          <div class="btn-row">
+            <button type="button" class="btn btn-primary" onclick="addCustomHabit()">
+              <i data-lucide="plus" width="18" height="18" aria-hidden="true"></i>
+              <span>新增習慣</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="tracker-msg" class="status-banner is-hidden" role="status" style="margin-bottom: var(--space-md);"></div>
+
+        <!-- Habit Rows -->
+        <div id="tracker-container"></div>
+
+        <!-- Actions Footer -->
+        <div class="btn-row" style="margin-top: var(--space-lg); justify-content: space-between;">
+          <div class="btn-row">
+            <button type="button" class="btn btn-secondary" onclick="loadStarterHabits()">
+              <i data-lucide="sparkles" width="18" height="18" aria-hidden="true"></i>
+              <span>載入小學生推薦習慣範本</span>
+            </button>
+            <button type="button" class="btn btn-quiet" onclick="exportTrackerTxt()">
+              <i data-lucide="download" width="18" height="18" aria-hidden="true"></i>
+              <span>下載實踐紀錄卡 (.txt)</span>
+            </button>
+          </div>
+          <button type="button" class="btn btn-danger-quiet" id="reset-tracker-btn" onclick="resetTracker(this)">
+            <i data-lucide="rotate-ccw" width="18" height="18" aria-hidden="true"></i>
+            <span>清空打卡紀錄</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOURCE FOOTER -->
+    <footer class="source-footer reveal-item">
+      <strong>資料與架構說明</strong>
+      <span>
+        本互動指南參考《小學生高效學習原子習慣：拆解8大策略Ｘ23個實作心法，引導孩子學習如何學》之核心主題脈絡，結合 James Clear《原子習慣》行為改變四法則（提示、渴望、回應、獎賞）與認知心理學主動回想、間隔複習與番茄鐘專注節奏原則編寫，專為國小學童與家長親子共讀實踐設計。
+      </span>
+    </footer>
+  </main>
+
+  <api-shim></api-shim>
+  <script>
+    // =========================================================================
+    // 1. DATA DEFINITIONS (Backtick template literals only for string safety)
+    // =========================================================================
+    const identityScenes = [
+      {
+        oldTitle: `「媽媽叫我寫完功課才能玩，好煩喔。」`,
+        oldDesc: `把寫作業當成被迫完成的苦差事，只求趕快敷衍寫完，大腦越寫越想逃避。`,
+        newTitle: `「我是一個先把任務搞定、再盡情放鬆的自律玩家。」`,
+        newDesc: `放學後先完成 2 分鐘「打開聯絡簿＋拿出第一本作業」，就等於為「自律玩家」投下一票！`
+      },
+      {
+        oldTitle: `「我數學就是很笨，每次都粗心算錯。」`,
+        oldDesc: `貼上「我很笨」的標籤後，大腦為了保護自己，會乾脆不想檢查、直接放棄。`,
+        newTitle: `「我是一個細心找線索、不放過任何計算陷阱的錯題偵探。」`,
+        newDesc: `每次訂正一題，用螢光筆圈出「哪裡看錯」，就為「錯題偵探」的身分增加一次經驗值。`
+      },
+      {
+        oldTitle: `「今天要背 20 個單字太多了，等一下再說。」`,
+        oldDesc: `目標大到像一座山，光是想到要背完就覺得累，結果拖到睡前還是沒打開課本。`,
+        newTitle: `「我是一個每天用聲音和聯想玩轉英語的小小語言家。」`,
+        newDesc: `不求一次背 20 個，先跟自己約定「每天唸出 3 個單字＋各造一個搞笑句子」，輕鬆達標！`
+      },
+      {
+        oldTitle: `「買了好多課外書，翻了兩頁就想去看電視。」`,
+        oldDesc: `書本放在高高的書架上、電視遙控器放在沙發旁，環境一直引誘你去做別的事。`,
+        newTitle: `「我是一個每天在故事世界旅行 5 分鐘的閱讀探險家。」`,
+        newDesc: `把最想看的那本書放在枕頭旁邊，睡前翻開兩頁就好，讓「開始閱讀」變得零阻力。`
+      }
+    ];
+
+    const strategiesData = [
+      {
+        id: `s1`,
+        num: `策略 01`,
+        cat: `focus`,
+        catLabel: `啟動與專注`,
+        title: `環境設計法：書桌淨空術`,
+        summary: `讓學習提示一眼就看見，把容易分心的玩具與平板請出視線範圍。`,
+        steps: [
+          `寫功課前花 60 秒清場：桌面上只留下「現在要寫的這一科課本」和基本文具盒。`,
+          `把平板、漫畫書、公仔放進有門的櫃子或另一個房間（增加取得阻力 20 秒）。`,
+          `放學後把明天要用的複習本提前放在書桌正中間，回家第一眼就看到。`
+        ],
+        pitfall: `常見踩雷：把所有科目的書一次全堆在桌上，看起來像一座山，還沒寫就先累了。`
+      },
+      {
+        id: `s2`,
+        num: `策略 02`,
+        cat: `focus`,
+        catLabel: `啟動與專注`,
+        title: `兩分鐘啟動法則：大任務縮小術`,
+        summary: `覺得好難不想開始時，把目標縮小到「只要做兩分鐘就准自己停下來」。`,
+        steps: [
+          `不想寫整張考卷？把目標改成「先把名字寫好、看完第一大題題目」。`,
+          `不想背課文？改成「大聲朗讀第一段一遍就好」。`,
+          `大腦只要跨過開始的摩擦力，往往會因為慣性繼續往下做。`
+        ],
+        pitfall: `常見踩雷：一開始就要求自己連寫一小時，結果拖延到晚上九點才動筆。`
+      },
+      {
+        id: `s3`,
+        num: `策略 03`,
+        cat: `focus`,
+        catLabel: `啟動與專注`,
+        title: `小學版番茄鐘：15＋5 專注節奏`,
+        summary: `配合國小階段的專注力曲線，用短時高專注取代長時間發呆磨蹭。`,
+        steps: [
+          `設定 15 分鐘計時器，這段時間只專心做一件事，不喝水、不東張西望。`,
+          `計時結束立刻休息 5 分鐘：離開椅子走動、喝水、看遠方讓眼睛放鬆。`,
+          `完成 2 個 15 分鐘循環，就能高效率完成多數平日作業。`
+        ],
+        pitfall: `常見踩雷：休息 5 分鐘跑去玩手機遊戲，大腦被螢幕刺激後更難回到書桌。`
+      },
+      {
+        id: `s4`,
+        num: `策略 04`,
+        cat: `memory`,
+        catLabel: `記憶與理解`,
+        title: `主動回想法：關書說一遍`,
+        summary: `不要一直盯著課本畫螢光筆！把書蓋起來回想，才是大腦真正記住的關鍵。`,
+        steps: [
+          `讀完社會或自然課本的一個小節後，立刻把書本蓋起來。`,
+          `拿一張空白廢紙或口頭說出：「這一頁講了哪 3 個最重要的重點？」`,
+          `打開課本對照，用紅筆補上剛剛忘記的地方，記憶立刻加深兩倍。`
+        ],
+        pitfall: `常見踩雷：把課本畫得五顏六色、重讀了五遍，考試時卻一片空白（流暢度錯覺）。`
+      },
+      {
+        id: `s5`,
+        num: `策略 05`,
+        cat: `memory`,
+        catLabel: `記憶與理解`,
+        title: `費曼小老師法：講給玩偶聽`,
+        summary: `如果你能用簡單的白話講給二年級的弟弟妹妹聽懂，就代表你真的學會了。`,
+        steps: [
+          `把床上的玩偶、寵物或爸媽當成學生，假裝自己是老師來講解今天學到的概念。`,
+          `試著用生活中的比喻解釋專有名詞，不准照唸課本句子。`,
+          `只要講到一半卡住或說不清楚，馬上翻回課本把那一小段弄懂。`
+        ],
+        pitfall: `常見踩雷：只是照著課本把定義唸出來，卻沒發現自己其實不懂「為什麼」。`
+      },
+      {
+        id: `s6`,
+        num: `策略 06`,
+        cat: `memory`,
+        catLabel: `記憶與理解`,
+        title: `錯題偵探本：追查真正的犯人`,
+        summary: `訂正不是把正確答案抄一遍，而是找出「為什麼當時會寫錯」。`,
+        steps: [
+          `準備一本專門的錯題本（或用剪貼方式），只放「差一點就會」或「常錯」的題目。`,
+          `在旁邊標記犯錯原因標籤：「看錯題意 / 計算粗心 / 觀念不懂」。`,
+          `考前不用全部重算，只要遮住答案重做這些錯題偵探本裡的題目就夠了。`
+        ],
+        pitfall: `常見踩雷：把整張考卷剪貼得滿滿的卻從來不看，或只抄算式沒寫錯誤原因。`
+      },
+      {
+        id: `s7`,
+        num: `策略 07`,
+        cat: `review`,
+        catLabel: `復盤與整理`,
+        title: `1-3-7 間隔複習波浪`,
+        summary: `比起考前臨時抱佛腳兩小時，分三天各看 10 分鐘，大腦記得更牢、更輕鬆。`,
+        steps: [
+          `第 1 天（學完當天晚上）：花 5 分鐘快速回想今天老師教的重點。`,
+          `第 3 天（隔兩天）：再拿出來快速做 2 題或考自己 5 分鐘。`,
+          `第 7 天（週末）：把這一週的錯題與重點重新掃過一次，大腦就會轉存為長期記憶。`
+        ],
+        pitfall: `常見踩雷：平常都不看，等到期中考前兩天才想把六週的進度一次塞進腦袋。`
+      },
+      {
+        id: `s8`,
+        num: `策略 08`,
+        cat: `review`,
+        catLabel: `復盤與整理`,
+        title: `睡前 3 分鐘微復盤`,
+        summary: `睡前最後幾分鐘幫明天做好準備，並肯定今天的自己，隔天起床超從容。`,
+        steps: [
+          `對照聯絡簿花 2 分鐘整理明天書包，確認水壺、餐袋與作業都已歸位。`,
+          `在心裡或小本子上說出「今天我做得最棒的一件小事」（例如：我有專心算完數學）。`,
+          `安心去睡覺！充足睡眠是大腦整理白天學習記憶的黃金時間。`
+        ],
+        pitfall: `常見踩雷：睡前滑手機或匆忙到隔天早上才找功課，讓一天從緊張開始。`
+      }
+    ];
+
+    const dayLabels = [`一`, `二`, `三`, `四`, `五`, `六`, `日`];
+
+    // =========================================================================
+    // 2. STATE MANAGEMENT (notebookAppApi)
+    // =========================================================================
+    let appState = {
+      habits: [],
+      selectedStrategyId: `s1`,
+      compoundDays: 180,
+      compoundRate: 0.01
+    };
+
+    let compoundChart = null;
+    let currentFilter = `all`;
+    let timerSecondsTotal = 15 * 60;
+    let timerSecondsLeft = 15 * 60;
+    let timerInterval = null;
+    let isTimerRunning = false;
+
+    async function saveState() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+          await window.notebookAppApi.setAppState(appState);
+        }
+      } catch (err) {
+        // Ignore transient save errors silently while keeping UI responsive
+      }
+    }
+
+    // =========================================================================
+    // 3. HELPER FUNCTIONS
+    // =========================================================================
+    function cssVar(name) {
+      return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    }
+
+    function scrollToSection(id) {
+      const target = document.getElementById(id);
+      if (target) {
+        target.scrollIntoView({ behavior: `smooth`, block: `start` });
+      }
+    }
+
+    function refreshIcons() {
+      if (window.lucide && typeof window.lucide.createIcons === `function`) {
+        window.lucide.createIcons();
+      }
+    }
+
+    function showBanner(elId, text, isWarning) {
+      const el = document.getElementById(elId);
+      if (!el) return;
+      el.textContent = text;
+      el.classList.remove(`is-hidden`);
+      if (isWarning) {
+        el.classList.add(`is-warning`);
+      } else {
+        el.classList.remove(`is-warning`);
+      }
+    }
+
+    // =========================================================================
+    // 4. CHAPTER 1: COMPOUNDING SIMULATOR
+    // =========================================================================
+    function syncDaysFromSlider(val) {
+      const days = clampDays(parseInt(val, 10));
+      const numEl = document.getElementById(`input-days`);
+      if (numEl) numEl.value = days;
+      appState.compoundDays = days;
+      updateCompoundChart();
+      saveState();
+    }
+
+    function syncDaysFromNumber(val) {
+      const parsed = parseInt(val, 10);
+      if (Number.isNaN(parsed)) return;
+      const days = clampDays(parsed);
+      const sliderEl = document.getElementById(`slider-days`);
+      if (sliderEl) sliderEl.value = days;
+      appState.compoundDays = days;
+      updateCompoundChart();
+      saveState();
+    }
+
+    function clampDays(n) {
+      if (Number.isNaN(n)) return 180;
+      return Math.max(30, Math.min(365, n));
+    }
+
+    function updateCompoundChart() {
+      const daysEl = document.getElementById(`slider-days`);
+      const rateEl = document.getElementById(`select-rate`);
+      const labelDays = document.getElementById(`label-days`);
+      if (!daysEl || !rateEl) return;
+
+      const days = clampDays(parseInt(daysEl.value, 10));
+      const rate = parseFloat(rateEl.value) || 0.01;
+      appState.compoundDays = days;
+      appState.compoundRate = rate;
+
+      if (labelDays) labelDays.textContent = `${days} 天`;
+
+      const labels = [];
+      const upSeries = [];
+      const flatSeries = [];
+      const downSeries = [];
+
+      const step = days <= 90 ? 5 : (days <= 180 ? 10 : 15);
+      for (let d = 0; d <= days; d += step) {
+        labels.push(`第 ${d} 天`);
+        upSeries.push(Number(Math.pow(1 + rate, d).toFixed(2)));
+        flatSeries.push(1);
+        downSeries.push(Number(Math.pow(1 - 0.01, d).toFixed(2)));
+      }
+      if (labels[labels.length - 1] !== `第 ${days} 天`) {
+        labels.push(`第 ${days} 天`);
+        upSeries.push(Number(Math.pow(1 + rate, days).toFixed(2)));
+        flatSeries.push(1);
+        downSeries.push(Number(Math.pow(1 - 0.01, days).toFixed(2)));
+      }
+
+      const finalUp = Math.pow(1 + rate, days);
+      const finalDown = Math.pow(1 - 0.01, days);
+
+      const statUp = document.getElementById(`stat-up`);
+      const statDown = document.getElementById(`stat-down`);
+      const insight = document.getElementById(`compound-insight`);
+
+      if (statUp) statUp.textContent = `${finalUp.toFixed(2)} 倍`;
+      if (statDown) statDown.textContent = `${finalDown.toFixed(2)} 倍`;
+      if (insight) {
+        if (days < 60) {
+          insight.textContent = `在前面 ${days} 天，兩條線差距還不大——這就是「潛在勢能高原」，最容易讓人誤以為努力沒用。別急著放棄，往後拉到 180 天看看！`;
+        } else if (days < 240) {
+          insight.textContent = `到了第 ${days} 天（大約一個學期），每天微小的好習慣已經滾出 ${finalUp.toFixed(1)} 倍的實力，是每天偷懶者的 ${Math.round(finalUp / finalDown)} 倍！`;
+        } else {
+          insight.textContent = `堅持整整 ${days} 天，每天多 ${(rate * 100).toFixed(1)}% 的學習小動作，會讓你變成「連自己都驚訝」的 ${finalUp.toFixed(2)} 倍！`;
+        }
+      }
+
+      renderCompoundChartCanvas(labels, upSeries, flatSeries, downSeries);
+    }
+
+    function renderCompoundChartCanvas(labels, upSeries, flatSeries, downSeries) {
+      const canvas = document.getElementById(`compound-chart`);
+      if (!canvas || typeof Chart === `undefined`) return;
+
+      const cPrimary = cssVar(`--data-1`);
+      const cPrimaryFill = cssVar(`--data-1-fill`);
+      const cSecondary = cssVar(`--data-2`);
+      const cContext = cssVar(`--data-context`);
+      const cGrid = cssVar(`--outline-variant`);
+      const cInk = cssVar(`--on-surface`);
+      const cInkMuted = cssVar(`--on-surface-variant`);
+      const cSurface = cssVar(`--surface-container-low`);
+
+      if (compoundChart) {
+        compoundChart.data.labels = labels;
+        compoundChart.data.datasets[0].data = upSeries;
+        compoundChart.data.datasets[1].data = flatSeries;
+        compoundChart.data.datasets[2].data = downSeries;
+        compoundChart.update();
+        return;
+      }
+
+      compoundChart = new Chart(canvas.getContext(`2d`), {
+        type: `line`,
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: `每天多努力一點點`,
+              data: upSeries,
+              borderColor: cPrimary,
+              backgroundColor: cPrimaryFill,
+              borderWidth: 4,
+              pointRadius: 4,
+              pointHoverRadius: 7,
+              pointBackgroundColor: cPrimary,
+              fill: true,
+              tension: 0.35
+            },
+            {
+              label: `維持原狀（0%）`,
+              data: flatSeries,
+              borderColor: cContext,
+              borderWidth: 2,
+              borderDash: [6, 6],
+              pointRadius: 0,
+              fill: false
+            },
+            {
+              label: `每天鬆懈 1%`,
+              data: downSeries,
+              borderColor: cSecondary,
+              borderWidth: 3,
+              pointRadius: 3,
+              pointBackgroundColor: cSecondary,
+              fill: false,
+              tension: 0.35
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: `index`, intersect: false },
+          plugins: {
+            legend: {
+              position: `top`,
+              align: `start`,
+              labels: {
+                usePointStyle: true,
+                pointStyle: `circle`,
+                color: cInk,
+                font: { family: `'Noto Sans TC', 'DM Sans', sans-serif`, size: 13, weight: `700` }
+              }
+            },
+            tooltip: {
+              backgroundColor: cSurface,
+              titleColor: cInk,
+              bodyColor: cInk,
+              borderColor: cPrimary,
+              borderWidth: 2,
+              padding: 12,
+              cornerRadius: 16,
+              callbacks: {
+                label: function(ctx) {
+                  return `${ctx.dataset.label}：${ctx.parsed.y} 倍`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              border: { display: false },
+              ticks: {
+                color: cInkMuted,
+                maxTicksLimit: 7,
+                font: { family: `'Noto Sans TC', 'DM Sans', sans-serif`, size: 12, weight: `600` }
+              }
+            },
+            y: {
+              beginAtZero: true,
+              grid: { color: cGrid, tickBorderDash: [4, 4] },
+              border: { display: false },
+              ticks: {
+                color: cInkMuted,
+                callback: function(v) { return `${v}x`; },
+                font: { family: `'Noto Sans TC', 'DM Sans', sans-serif`, size: 12, weight: `600` }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // =========================================================================
+    // 5. CHAPTER 2: IDENTITY SWITCHER
+    // =========================================================================
+    function selectIdentityScene(idx) {
+      const scene = identityScenes[idx];
+      if (!scene) return;
+
+      for (let i = 0; i < identityScenes.length; i++) {
+        const btn = document.getElementById(`id-btn-${i}`);
+        if (btn) {
+          btn.classList.toggle(`is-active`, i === idx);
+        }
+      }
+
+      const oldT = document.getElementById(`id-old-title`);
+      const oldD = document.getElementById(`id-old-desc`);
+      const newT = document.getElementById(`id-new-title`);
+      const newD = document.getElementById(`id-new-desc`);
+
+      if (oldT) oldT.textContent = scene.oldTitle;
+      if (oldD) oldD.textContent = scene.oldDesc;
+      if (newT) newT.textContent = scene.newTitle;
+      if (newD) newD.textContent = scene.newDesc;
+    }
+
+    // =========================================================================
+    // 6. CHAPTER 3: HABIT STACKING RECIPE BUILDER
+    // =========================================================================
+    function updateRecipePreview() {
+      const cueEl = document.getElementById(`sel-cue`);
+      const actEl = document.getElementById(`sel-action`);
+      const rewEl = document.getElementById(`sel-reward`);
+
+      const pCue = document.getElementById(`prev-cue`);
+      const pAct = document.getElementById(`prev-action`);
+      const pRew = document.getElementById(`prev-reward`);
+
+      if (cueEl && pCue) pCue.textContent = cueEl.value;
+      if (actEl && pAct) pAct.textContent = actEl.value;
+      if (rewEl && pRew) pRew.textContent = rewEl.value;
+    }
+
+    async function addRecipeToTracker() {
+      const cueEl = document.getElementById(`sel-cue`);
+      const actEl = document.getElementById(`sel-action`);
+      const rewEl = document.getElementById(`sel-reward`);
+      if (!cueEl || !actEl || !rewEl) return;
+
+      const newHabit = {
+        id: `h_${Date.now()}`,
+        name: actEl.value,
+        cue: `${cueEl.value} → ${rewEl.value}`,
+        days: [false, false, false, false, false, false, false]
+      };
+
+      appState.habits.push(newHabit);
+      renderTracker();
+      await saveState();
+      showBanner(`recipe-feedback`, `已成功加入打卡表！下滑到第五章就能開始打卡囉。`, false);
+    }
+
+    // =========================================================================
+    // 7. CHAPTER 4: 8 STRATEGIES EXPLORER & POMODORO
+    // =========================================================================
+    function filterStrategies(cat, btnEl) {
+      currentFilter = cat;
+      const buttons = document.querySelectorAll(`[data-filter]`);
+      buttons.forEach(function(b) {
+        b.classList.toggle(`is-active`, b === btnEl);
+      });
+      renderStrategyGrid();
+    }
+
+    function selectStrategy(id) {
+      appState.selectedStrategyId = id;
+      renderStrategyGrid();
+      renderStrategyDetail();
+      saveState();
+    }
+
+    function renderStrategyGrid() {
+      const grid = document.getElementById(`strategy-grid`);
+      if (!grid) return;
+
+      const filtered = currentFilter === `all`
+        ? strategiesData
+        : strategiesData.filter(function(s) { return s.cat === currentFilter; });
+
+      grid.innerHTML = filtered.map(function(s) {
+        const isSel = s.id === appState.selectedStrategyId;
+        const badgeClass = s.cat === `focus`
+          ? `badge-soft-pink`
+          : (s.cat === `memory` ? `badge-grape` : `badge-sky`);
+        return `
+          <article class="strategy-card ${isSel ? `is-selected` : ``}" role="button" tabindex="0" onclick="selectStrategy('${s.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectStrategy('${s.id}');}">
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: var(--space-sm);">
+              <span class="badge ${badgeClass}">${s.num}・${s.catLabel}</span>
+            </div>
+            <h3>${s.title}</h3>
+            <p style="font-size: 0.95rem; color: var(--on-surface-variant);">${s.summary}</p>
+          </article>
+        `;
+      }).join(``);
+    }
+
+    function renderStrategyDetail() {
+      const panel = document.getElementById(`strategy-detail`);
+      if (!panel) return;
+      const item = strategiesData.find(function(s) { return s.id === appState.selectedStrategyId; }) || strategiesData[0];
+
+      const stepsHtml = item.steps.map(function(step) {
+        return `<li>${step}</li>`;
+      }).join(``);
+
+      panel.innerHTML = `
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-sm);">
+          <span class="badge badge-pink">${item.num} 實作心法詳解</span>
+          <span class="tag tag-outline">${item.catLabel}</span>
+        </div>
+        <h3>${item.title}</h3>
+        <p>${item.summary}</p>
+        <ol class="strategy-steps">${stepsHtml}</ol>
+        <div class="tip-well">
+          <i data-lucide="compass" width="20" height="20" aria-hidden="true" style="flex-shrink: 0; color: var(--secondary); margin-top: 3px;"></i>
+          <span><strong>${item.pitfall}</strong></span>
+        </div>
+      `;
+      refreshIcons();
+    }
+
+    // Pomodoro Timer
+    function formatTime(sec) {
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      const mm = m < 10 ? `0${m}` : `${m}`;
+      const ss = s < 10 ? `0${s}` : `${s}`;
+      return `${mm}:${ss}`;
+    }
+
+    function updateTimerDisplay() {
+      const disp = document.getElementById(`timer-display`);
+      const prog = document.getElementById(`timer-progress`);
+      if (disp) disp.textContent = formatTime(timerSecondsLeft);
+      if (prog) {
+        const pct = timerSecondsTotal > 0 ? Math.max(0, (timerSecondsLeft / timerSecondsTotal) * 100) : 0;
+        prog.style.width = `${pct}%`;
+      }
+    }
+
+    function setTimerPreset(minutes) {
+      stopTimerInterval();
+      timerSecondsTotal = minutes * 60;
+      timerSecondsLeft = minutes * 60;
+      isTimerRunning = false;
+      updateTimerButtonLabel();
+      updateTimerDisplay();
+      const statusEl = document.getElementById(`timer-status`);
+      if (statusEl) {
+        statusEl.textContent = `已設定為 ${minutes} 分鐘專注模式，準備好就按下「開始計時」！`;
+      }
+    }
+
+    function stopTimerInterval() {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+    }
+
+    function updateTimerButtonLabel() {
+      const btn = document.getElementById(`timer-toggle-btn`);
+      if (!btn) return;
+      if (isTimerRunning) {
+        btn.innerHTML = `<i data-lucide="pause" width="18" height="18" aria-hidden="true"></i><span>暫停計時</span>`;
+      } else {
+        btn.innerHTML = `<i data-lucide="play" width="18" height="18" aria-hidden="true"></i><span>開始計時</span>`;
+      }
+      refreshIcons();
+    }
+
+    function toggleTimer() {
+      const statusEl = document.getElementById(`timer-status`);
+      if (isTimerRunning) {
+        stopTimerInterval();
+        isTimerRunning = false;
+        if (statusEl) statusEl.textContent = `計時已暫停，深呼吸一下再繼續！`;
+        updateTimerButtonLabel();
+        return;
+      }
+
+      if (timerSecondsLeft <= 0) {
+        timerSecondsLeft = timerSecondsTotal;
+      }
+
+      isTimerRunning = true;
+      updateTimerButtonLabel();
+      if (statusEl) statusEl.textContent = `專注進行中！這段時間只做好眼前這一件事。`;
+
+      timerInterval = setInterval(function() {
+        timerSecondsLeft -= 1;
+        updateTimerDisplay();
+        if (timerSecondsLeft <= 0) {
+          stopTimerInterval();
+          isTimerRunning = false;
+          updateTimerButtonLabel();
+          if (statusEl) {
+            statusEl.textContent = `時間到！太棒了，請站起來伸懶腰、喝口水休息 5 分鐘吧！`;
+          }
+        }
+      }, 1000);
+    }
+
+    function resetTimer() {
+      stopTimerInterval();
+      isTimerRunning = false;
+      timerSecondsLeft = timerSecondsTotal;
+      updateTimerDisplay();
+      updateTimerButtonLabel();
+      const statusEl = document.getElementById(`timer-status`);
+      if (statusEl) statusEl.textContent = `已重設完成，隨時可以重新開始。`;
+    }
+
+    // =========================================================================
+    // 8. CHAPTER 5: 7-DAY PERSISTENT HABIT TRACKER
+    // =========================================================================
+    function renderTracker() {
+      const container = document.getElementById(`tracker-container`);
+      const totalEl = document.getElementById(`tracker-total-done`);
+      const rateEl = document.getElementById(`tracker-rate`);
+      const votesEl = document.getElementById(`tracker-votes`);
+      const barEl = document.getElementById(`tracker-progress-bar`);
+
+      if (!container) return;
+
+      const habits = appState.habits || [];
+      let doneCount = 0;
+      const possibleCount = habits.length * 7;
+
+      habits.forEach(function(h) {
+        if (Array.isArray(h.days)) {
+          h.days.forEach(function(d) {
+            if (d) doneCount += 1;
+          });
+        }
+      });
+
+      const pct = possibleCount > 0 ? Math.round((doneCount / possibleCount) * 100) : 0;
+      if (totalEl) totalEl.textContent = `${doneCount} / ${possibleCount}`;
+      if (rateEl) rateEl.textContent = `${pct}%`;
+      if (votesEl) votesEl.textContent = `${doneCount} 票`;
+      if (barEl) barEl.style.width = `${pct}%`;
+
+      if (habits.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <i data-lucide="award" width="36" height="36" aria-hidden="true" style="color: var(--primary);"></i>
+            <h3>你的七天習慣打卡表目前是空的</h3>
+            <p style="color: var(--on-surface-variant);">
+              你可以從上方「輸入一個 2 分鐘微習慣」、用第三章的「配方產生器」加入，或是直接點下方按鈕載入推薦範本！
+            </p>
+          </div>
+        `;
+        refreshIcons();
+        return;
+      }
+
+      const rowsHtml = habits.map(function(h) {
+        const streak = calcBestStreak(h.days || []);
+        const dayBtns = dayLabels.map(function(lbl, idx) {
+          const isDone = Boolean(h.days && h.days[idx]);
+          return `
+            <button type="button"
+              class="day-btn ${isDone ? `is-done` : ``}"
+              aria-label="${h.name} 星期${lbl} ${isDone ? `已完成` : `未完成`}"
+              aria-pressed="${isDone ? `true` : `false`}"
+              onclick="toggleHabitDay('${h.id}', ${idx})">${lbl}</button>
+          `;
+        }).join(``);
+
+        return `
+          <div class="habit-row">
+            <div class="habit-title-group">
+              <span class="habit-name">${escapeHtml(h.name)}</span>
+              <span class="habit-meta">${h.cue ? `提示：${escapeHtml(h.cue)}・` : ``}本週最長連續 ${streak} 天</span>
+            </div>
+            <div class="day-pills">${dayBtns}</div>
+            <button type="button" class="btn btn-quiet" style="padding: var(--space-sm); min-width: 44px;" aria-label="刪除 ${escapeHtml(h.name)}" onclick="deleteHabit('${h.id}')">
+              <i data-lucide="trash-2" width="18" height="18" aria-hidden="true"></i>
+            </button>
+          </div>
+        `;
+      }).join(``);
+
+      container.innerHTML = `<div class="tracker-list">${rowsHtml}</div>`;
+      refreshIcons();
+    }
+
+    function calcBestStreak(days) {
+      let best = 0;
+      let cur = 0;
+      for (let i = 0; i < days.length; i++) {
+        if (days[i]) {
+          cur += 1;
+          if (cur > best) best = cur;
+        } else {
+          cur = 0;
+        }
+      }
+      return best;
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, `&amp;`)
+        .replace(/</g, `&lt;`)
+        .replace(/>/g, `&gt;`)
+        .replace(/"/g, `&quot;`)
+        .replace(/'/g, `&#39;`);
+    }
+
+    async function addCustomHabit() {
+      const nameInput = document.getElementById(`new-habit-name`);
+      const cueInput = document.getElementById(`new-habit-cue`);
+      if (!nameInput) return;
+
+      const name = nameInput.value.trim();
+      const cue = cueInput ? cueInput.value.trim() : ``;
+
+      if (name.length < 2) {
+        showBanner(`tracker-msg`, `請輸入至少 2 個字的微習慣名稱（例如：打開數學課本寫 2 題）。`, true);
+        return;
+      }
+
+      appState.habits.push({
+        id: `h_${Date.now()}`,
+        name: name,
+        cue: cue,
+        days: [false, false, false, false, false, false, false]
+      });
+
+      nameInput.value = ``;
+      if (cueInput) cueInput.value = ``;
+
+      renderTracker();
+      await saveState();
+      showBanner(`tracker-msg`, `已新增「${name}」！點選星期一到日的圓圈即可開始打卡。`, false);
+    }
+
+    async function toggleHabitDay(habitId, dayIdx) {
+      const target = appState.habits.find(function(h) { return h.id === habitId; });
+      if (!target || !Array.isArray(target.days)) return;
+      target.days[dayIdx] = !target.days[dayIdx];
+      renderTracker();
+      await saveState();
+    }
+
+    async function deleteHabit(habitId) {
+      appState.habits = appState.habits.filter(function(h) { return h.id !== habitId; });
+      renderTracker();
+      await saveState();
+    }
+
+    async function loadStarterHabits() {
+      const starters = [
+        {
+          id: `starter_1`,
+          name: `寫作業前花 60 秒淨空書桌桌面`,
+          cue: `放學回家喝完水`,
+          days: [false, false, false, false, false, false, false]
+        },
+        {
+          id: `starter_2`,
+          name: `讀完一頁課本後，蓋書講出 3 個重點`,
+          cue: `吃飽晚餐開始複習時`,
+          days: [false, false, false, false, false, false, false]
+        },
+        {
+          id: `starter_3`,
+          name: `花 3 分鐘對照聯絡簿整理明天書包`,
+          cue: `睡前刷牙之後`,
+          days: [false, false, false, false, false, false, false]
+        }
+      ];
+      appState.habits = starters;
+      renderTracker();
+      await saveState();
+      showBanner(`tracker-msg`, `已載入 3 個小學生基礎學習微習慣，試著點點看今天的圓圈吧！`, false);
+    }
+
+    async function resetTracker(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.innerHTML = `<i data-lucide="rotate-ccw" width="18" height="18" aria-hidden="true"></i><span>再點一次確認清空</span>`;
+        refreshIcons();
+        return;
+      }
+      btn.dataset.armed = `false`;
+      btn.innerHTML = `<i data-lucide="rotate-ccw" width="18" height="18" aria-hidden="true"></i><span>清空打卡紀錄</span>`;
+      appState.habits = [];
+      renderTracker();
+      await saveState();
+      showBanner(`tracker-msg`, `打卡表已清空，隨時可以加入新的學習目標！`, false);
+      refreshIcons();
+    }
+
+    function exportTrackerTxt() {
+      const habits = appState.habits || [];
+      if (habits.length === 0) {
+        showBanner(`tracker-msg`, `目前沒有習慣紀錄可以下載，請先新增或載入習慣範本喔！`, true);
+        return;
+      }
+
+      const lines = [
+        `=== 小學生原子習慣 7 天實踐紀錄卡 ===`,
+        ``
+      ];
+      let totalDone = 0;
+      habits.forEach(function(h, idx) {
+        const marks = (h.days || []).map(function(d, di) {
+          if (d) totalDone += 1;
+          return `${dayLabels[di]}:${d ? `●` : `○`}`;
+        }).join(`  `);
+        lines.push(`${idx + 1}. ${h.name}${h.cue ? `（提示：${h.cue}）` : ``}`);
+        lines.push(`   ${marks}`);
+      });
+      lines.push(``);
+      lines.push(`本週累積身份認同選票：${totalDone} 票（絕不連續中斷兩天！）`);
+
+      const textContent = lines.join(`\n`);
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === `function`) {
+        window.notebookAppApi.triggerFileDownload({
+          content: textContent,
+          contentType: `text/plain`,
+          encoding: `UTF-8`,
+          filename: `小學生原子習慣打卡表.txt`
+        });
+        showBanner(`tracker-msg`, `已為你下載「小學生原子習慣打卡表.txt」！`, false);
+      } else {
+        showBanner(`tracker-msg`, `已完成本週紀錄彙整（共 ${totalDone} 票）。`, false);
+      }
+    }
+
+    // =========================================================================
+    // 9. SCROLL REVEAL & INITIALIZATION
+    // =========================================================================
+    function setupRevealObserver() {
+      const items = document.querySelectorAll(`.reveal-item`);
+      if (!(`IntersectionObserver` in window)) {
+        items.forEach(function(el) { el.classList.add(`is-visible`); });
+        return;
+      }
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(`is-visible`);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      items.forEach(function(el) { observer.observe(el); });
+    }
+
+    async function initApp() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === `object`) {
+            if (Array.isArray(saved.habits)) appState.habits = saved.habits;
+            if (typeof saved.selectedStrategyId === `string`) appState.selectedStrategyId = saved.selectedStrategyId;
+            if (typeof saved.compoundDays === `number`) appState.compoundDays = clampDays(saved.compoundDays);
+            if (typeof saved.compoundRate === `number`) appState.compoundRate = saved.compoundRate;
+          }
+        }
+      } catch (err) {
+        // Fallback to clean empty state
+      }
+
+      const sliderEl = document.getElementById(`slider-days`);
+      const numEl = document.getElementById(`input-days`);
+      const rateEl = document.getElementById(`select-rate`);
+      if (sliderEl) sliderEl.value = appState.compoundDays;
+      if (numEl) numEl.value = appState.compoundDays;
+      if (rateEl) rateEl.value = String(appState.compoundRate);
+
+      updateCompoundChart();
+      selectIdentityScene(0);
+      updateRecipePreview();
+      renderStrategyGrid();
+      renderStrategyDetail();
+      updateTimerDisplay();
+      renderTracker();
+      setupRevealObserver();
+      refreshIcons();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener(`DOMContentLoaded`, initApp);
+  </script>
+</body>
+</html>
